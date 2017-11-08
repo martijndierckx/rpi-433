@@ -55,62 +55,20 @@ class RCSwitch {
 
   public:
     RCSwitch();
-    
-    void switchOn(int nGroupNumber, int nSwitchNumber);
-    void switchOff(int nGroupNumber, int nSwitchNumber);
-    void switchOn(char* sGroup, int nSwitchNumber);
-    void switchOff(char* sGroup, int nSwitchNumber);
-    void switchOn(char sFamily, int nGroup, int nDevice);
-    void switchOff(char sFamily, int nGroup, int nDevice);
 
-    void sendTriState(char* Code);
     void send(char* Code);
-    
-    void enableReceive(int interrupt);
-    void enableReceive();
-    void disableReceive();
-    bool available();
-	void resetAvailable();
-	
-    unsigned long getReceivedValue();
-    unsigned int getReceivedBitlength();
-    unsigned int getReceivedDelay();
-	unsigned int getReceivedProtocol();
-    unsigned int* getReceivedRawdata();
   
     void enableTransmit(int nTransmitterPin);
     void disableTransmit();
     void setPulseLength(int nPulseLength);
     void setRepeatTransmit(int nRepeatTransmit);
-    void setReceiveTolerance(int nPercent);
-	void setProtocol(int nProtocol);
-	void setProtocol(int nProtocol, int nPulseLength);
   
   private:
-    char* getCodeWordB(int nGroupNumber, int nSwitchNumber, boolean bStatus);
-    char* getCodeWordA(char* sGroup, int nSwitchNumber, boolean bStatus);
-    char* getCodeWordC(char sFamily, int nGroup, int nDevice, boolean bStatus);
     void transmit(int nHighPulses, int nLowPulses);
-
-    static char* dec2binWzerofill(unsigned long dec, unsigned int length);
-    
-    static void handleInterrupt();
-	static bool receiveProtocol1(unsigned int changeCount);
-	static bool receiveProtocol2(unsigned int changeCount);
-    int nReceiverInterrupt;
     int nTransmitterPin;
     int nPulseLength;
     int nRepeatTransmit;
-	char nProtocol;
 
-	static int nReceiveTolerance;
-    static unsigned long nReceivedValue;
-    static unsigned int nReceivedBitlength;
-	static unsigned int nReceivedDelay;
-	static unsigned int nReceivedProtocol;
-    static unsigned int timings[RCSWITCH_MAX_CHANGES];
-
-    
 };
 
 #endif
