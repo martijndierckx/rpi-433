@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
   struct Options {
     
     int PIN;
-    char CODE;
+    char* CODE;
     int PULSE_LENGTH;
     
     Options():  PIN(0),
