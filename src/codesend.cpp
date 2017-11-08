@@ -55,10 +55,8 @@ int main(int argc, char *argv[]) {
   RCSwitch mySwitch = RCSwitch();
   mySwitch.enableTransmit(options.PIN);
   mySwitch.setPulseLength(options.PULSE_LENGTH);
-  mySwitch.send(options.CODE, 24);
+  mySwitch.send(options.CODE);
   
-  printf("code: %i, pin: %i, pulseLength: %i\n", options.CODE, options.PIN, options.PULSE_LENGTH);
-
   return 0;
 
 }

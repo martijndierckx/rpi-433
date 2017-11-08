@@ -64,7 +64,6 @@ class RCSwitch {
     void switchOff(char sFamily, int nGroup, int nDevice);
 
     void sendTriState(char* Code);
-    void send(unsigned long Code, unsigned int length);
     void send(char* Code);
     
     void enableReceive(int interrupt);
@@ -91,12 +90,6 @@ class RCSwitch {
     char* getCodeWordB(int nGroupNumber, int nSwitchNumber, boolean bStatus);
     char* getCodeWordA(char* sGroup, int nSwitchNumber, boolean bStatus);
     char* getCodeWordC(char sFamily, int nGroup, int nDevice, boolean bStatus);
-    void sendT0();
-    void sendT1();
-    void sendTF();
-    void send0();
-    void send1();
-    void sendSync();
     void transmit(int nHighPulses, int nLowPulses);
 
     static char* dec2binWzerofill(unsigned long dec, unsigned int length);

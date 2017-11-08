@@ -314,9 +314,6 @@ void RCSwitch::sendTriState(char* sCodeWord) {
   }
 }
 
-void RCSwitch::send(unsigned long Code, unsigned int length) {
-  this->send( this->dec2binWzerofill(Code, length) );
-}
 
 void RCSwitch::send(char* sCodeWord) {
   for (int nRepeat=0; nRepeat<nRepeatTransmit; nRepeat++) {
@@ -324,15 +321,15 @@ void RCSwitch::send(char* sCodeWord) {
     while (sCodeWord[i] != '\0') {
       switch(sCodeWord[i]) {
         case '0':
-          this->send0();
+          this->transmit(0,1);
         break;
         case '1':
-          this->send1();
+          this->transmit(1,0);
         break;
       }
       i++;
     }
-    this->sendSync();
+    this->transmit(0,50);
   }
 }
 
@@ -352,85 +349,6 @@ void RCSwitch::transmit(int nHighPulses, int nLowPulses) {
             this->enableReceive(nReceiverInterrupt_backup);
         }
     }
-}
-/**
- * Sends a "0" Bit
- *                       _    
- * Waveform Protocol 1: | |___
- *                       _  
- * Waveform Protocol 2: | |__
- */
-void RCSwitch::send0() {
-	if (this->nProtocol == 1){
-		this->transmit(1,3);
-	}
-	else if (this->nProtocol == 2) {
-		this->transmit(1,2);
-	}
-}
-
-/**
- * Sends a "1" Bit
- *                       ___  
- * Waveform Protocol 1: |   |_
- *                       __  
- * Waveform Protocol 2: |  |_
- */
-void RCSwitch::send1() {
-  	if (this->nProtocol == 1){
-		this->transmit(3,1);
-	}
-	else if (this->nProtocol == 2) {
-		this->transmit(2,1);
-	}
-}
-
-
-/**
- * Sends a Tri-State "0" Bit
- *            _     _
- * Waveform: | |___| |___
- */
-void RCSwitch::sendT0() {
-  this->transmit(1,3);
-  this->transmit(1,3);
-}
-
-/**
- * Sends a Tri-State "1" Bit
- *            ___   ___
- * Waveform: |   |_|   |_
- */
-void RCSwitch::sendT1() {
-  this->transmit(3,1);
-  this->transmit(3,1);
-}
-
-/**
- * Sends a Tri-State "F" Bit
- *            _     ___
- * Waveform: | |___|   |_
- */
-void RCSwitch::sendTF() {
-  this->transmit(1,3);
-  this->transmit(3,1);
-}
-
-/**
- * Sends a "Sync" Bit
- *                       _
- * Waveform Protocol 1: | |_______________________________
- *                       _
- * Waveform Protocol 2: | |__________
- */
-void RCSwitch::sendSync() {
-
-    if (this->nProtocol == 1){
-		this->transmit(1,31);
-	}
-	else if (this->nProtocol == 2) {
-		this->transmit(1,10);
-	}
 }
 
 /**
