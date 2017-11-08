@@ -84,9 +84,14 @@ void RCSwitch::send(char* sCodeWord) {
 
 void RCSwitch::transmit(int nHighPulses, int nLowPulses) {
     if (this->nTransmitterPin != -1) {
-        digitalWrite(this->nTransmitterPin, HIGH);
-        delayMicroseconds( this->nPulseLength * nHighPulses);
-        digitalWrite(this->nTransmitterPin, LOW);
-        delayMicroseconds( this->nPulseLength * nLowPulses);
+        if(nHighPulses > 0) {
+          digitalWrite(this->nTransmitterPin, HIGH);
+          delayMicroseconds( this->nPulseLength * nHighPulses);
+        }
+        
+        if(nLowPulses > 0) {
+          digitalWrite(this->nTransmitterPin, LOW);
+          delayMicroseconds( this->nPulseLength * nLowPulses);
+        }
     }
 }
