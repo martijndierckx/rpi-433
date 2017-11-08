@@ -42,12 +42,6 @@ Emitter.prototype.sendCode = function (code, options, callback) {
     return deferred.reject(new Error('Invalid parameters. sendCode(code, [options, callback])'));
   }
 
-  //Check if code is a number (and parse it)
-  code = parseInt(code);
-  if(!_.isNumber(code)) {
-    return deferred.reject(new Error('First parameter must be a integer'));   
-  }
-
   //Tidy up
   switch(arguments.length) {
 
