@@ -83,8 +83,6 @@ void RCSwitch::send(char* sCodeWord) {
 }
 
 void RCSwitch::transmit(int nHighPulses, int nLowPulses) {
-    boolean disabled_Receive = false;
-    int nReceiverInterrupt_backup = nReceiverInterrupt;
     if (this->nTransmitterPin != -1) {
         digitalWrite(this->nTransmitterPin, HIGH);
         delayMicroseconds( this->nPulseLength * nHighPulses);
